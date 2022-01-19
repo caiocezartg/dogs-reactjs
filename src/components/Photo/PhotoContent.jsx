@@ -1,33 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import PhotoComments from './PhotoComments';
-import styles from './PhotoContent.module.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import PhotoComments from "./PhotoComments";
+import styles from "./PhotoContent.module.css";
 
-const PhotoContent = ({data}) => {
+const PhotoContent = ({ data }) => {
+  return (
+    <div className={styles.photo}>
+      <div className={styles.img}>
+        <img src={data.photo.src} alt={data.photo.title} />
+      </div>
+      <div className={styles.details}>
+        <div>
+          <p className={styles.author}>
+            <Link to={`/perfil/${data.photo.author}`}>
+              @{data.photo.author}
+            </Link>
+            <span className={styles.views}>{data.photo.acessos}</span>
+          </p>
+          <h1 className="title">
+            <Link to={`/foto/${data.photo.id}`}>{data.photo.title}</Link>
+          </h1>
+          <ul className={styles.attributes}>
+            <li>{data.photo.peso} kg</li>
+            <li>
+              {data.photo.idade} {data.photo.idade > 1 ? "anos" : "ano"}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <PhotoComments id={data.photo.id} comments={data.photo.comments} />
+    </div>
+  );
+};
 
-    return (
-        <div className={styles.photo}>
-           <div className={styles.img}>
-               <img src={data.photo.src} alt={data.photo.title} />
-            </div>
-            <div className={styles.details}>
-                <div>
-                    <p className={styles.author}>
-                        <Link to={`/perfil/${data.photo.author}`}>@{data.photo.author}</Link>
-                        <span className={styles.views}>{data.photo.acessos}</span>
-                    </p>
-                    <h1 className="title">
-                        <Link to={`/foto/${data.photo.id}`}>{data.photo.title}</Link>
-                    </h1>
-                    <ul className={styles.attributes}>
-                        <li>{data.photo.peso} kg</li>
-                        <li>{data.photo.idade} {data.photo.idade > 1 ? 'anos' : 'ano'}</li>
-                    </ul>
-                </div>
-            </div>
-            <PhotoComments id={data.photo.id} comments={data.photo.comments} />
-        </div> 
-    )
-}
-
-export default PhotoContent
+export default PhotoContent;
